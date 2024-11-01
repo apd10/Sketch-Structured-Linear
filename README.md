@@ -15,16 +15,27 @@ git clone https://github.com/kimiasa/SSLinear/tree/clean  # note use the clean b
 
 ### Convert a standard model linear layers to use SS1
 
+Converting a HuggingFace PreTrainedModel object to use SS1 layers in place of standard linear layers:
+```
+from sketch_structured_linear.SSLProjection import convert_to_ss_linear
 
-### End to End Training with SSL Linear layers
-
+model = convert_to_ss_linear(
+    model,
+    reduction_factor=8,
+    layer_indices [1,2,3,4,5],
+    skip_attention=False,
+    init_seed=42,
+    skip_pattern=['pooler', 'embeddings'],
+)
+```
+During conversion, block sizes for each layer are adjusted to optimize efficiency with respect to GPU capabilities and model dimensions.
 
 ### Projecting a pre-trained model onto SS1
 
 
 # Reproducing results in paper.
 
-### GPT2 end-to-end training inference latency benchmarking
+### GPT2 end-to-end training & inference latency benchmarking
 Ensure that [SS1 Kernel](https://github.com/kimiasa/SSLinear/tree/clean) is properly installed. <br /><br />
 
 To run the GPT2 end-to-end training, check out the train branch at [Experiments](https://github.com/kimiasa/Experiments/tree/train) repo.
