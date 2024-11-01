@@ -15,10 +15,31 @@ git clone https://github.com/kimiasa/SSLinear/tree/clean  # note use the clean b
 
 ### Convert a standard model linear layers to use SS1
 
-Converting a HuggingFace PreTrainedModel object to use SS1 layers in place of standard linear layers:
+
+SS1 layers can be simply created by the following and used in standar model building.
+
+```
+from sketch_structured_linear.SSL import SSL
+layer = SSL(in_dim, out_dim, redn_factor=red_fac, seed=seed, bias=True)
+```
+
+We provide utility for creating a SS1 model out of standard transformer models for easier usage. The recipe to generate SS1 model is to first create a standard model and then use the convert_to_ss_linear method to obtain the corresponding SS1 model.
+```
+def convert_to_ss_linear(
+    model,
+    reduction_factor: int,
+    layer_indices: Optional[List[int]] = None,  # if you only want to keep certain layers
+    skip_attention: Optional[bool] = False, # if you want to skip the attention matrices (K,Q,V)
+    init_seed: Optional[int] = 42,
+    skip_pattern: Optional[List[str]] = None # pattern based skipping.
+)
+```
+
+
+An example would be:
 ```
 from sketch_structured_linear.SSLProjection import convert_to_ss_linear
-
+#model =  some pretrained / scratch model
 model = convert_to_ss_linear(
     model,
     reduction_factor=8,
@@ -28,7 +49,7 @@ model = convert_to_ss_linear(
     skip_pattern=['pooler', 'embeddings'],
 )
 ```
-During conversion, block sizes for each layer are adjusted to optimize efficiency with respect to GPU capabilities and model dimensions.
+During conversion, block sizes for each layer are adjusted to optimize efficiency with respect to GPU capabilities and model dimensions. So expect the first iteration to be slow. If you know what block sizes to use , you can skip autotuning and set the block sizes after initializing layer.
 
 ### Projecting a pre-trained model onto SS1
 
@@ -53,8 +74,8 @@ git clone https://github.com/kimiasa/Experiments/tree/inference  # use inference
 # Correspondence
 If you need help with your own work using the repository, it would be best to email apdesai@berkeley.edu AND adirid.7090@gmail.com 
 
-# Related Work
 
+# Previous work . If you find our work useful. Please cite the following:
 ```
 @inproceedings{ss1,
  author = {Desai, Aditya and Saedi, Kimia and Walia Apoorv, and Lee, Jihyeong and Zhou, Keren and Shrivastava Anshumali},
