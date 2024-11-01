@@ -58,6 +58,7 @@ During conversion, block sizes for each layer are adjusted to optimize efficienc
 
 ### GPT2 end-to-end training & inference latency benchmarking
 Ensure that [SS1 Kernel](https://github.com/kimiasa/SSLinear/tree/clean) is properly installed. <br /><br />
+We build on the top of Hazy Research's [fly](https://github.com/HazyResearch/fly) repository. Please follow the instructions at the following repostory,branch:
 
 To run the GPT2 end-to-end training, check out the train branch at [Experiments](https://github.com/kimiasa/Experiments/tree/train) repo.
 ```
