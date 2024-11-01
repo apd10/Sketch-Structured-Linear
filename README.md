@@ -43,7 +43,7 @@ from sketch_structured_linear.SSLProjection import convert_to_ss_linear
 model = convert_to_ss_linear(
     model,
     reduction_factor=8,
-    layer_indices [1,2,3,4,5],
+    layer_indices = [1,2,3,4,5],
     skip_attention=False,
     init_seed=42,
     skip_pattern=['pooler', 'embeddings'],
