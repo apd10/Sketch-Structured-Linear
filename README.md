@@ -24,7 +24,17 @@ git clone https://github.com/kimiasa/SSLinear/tree/clean  # note use the clean b
 
 # Reproducing results in paper.
 
-### GPT2 end-to-end training
+### GPT2 end-to-end training inference latency benchmarking
+Ensure that [SS1 Kernel](https://github.com/kimiasa/SSLinear/tree/clean) is properly installed. <br /><br />
+
+To run the GPT2 end-to-end training, check out the train branch at [Experiments](https://github.com/kimiasa/Experiments/tree/train) repo.
+```
+git clone https://github.com/kimiasa/Experiments/tree/train  # use train branch
+```
+For Inference latency benchmarking:
+```
+git clone https://github.com/kimiasa/Experiments/tree/inference  # use inference branch
+```
 
 ### Bert fine-tuning
 
