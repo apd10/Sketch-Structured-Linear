@@ -93,7 +93,7 @@ If you need help with your own work using the repository, it would be best to em
  volume = {4},
  year = {2022},
  award = {Outstanding Paper Award},
- note = {{\color{purple}\textbf{Outstanding Paper Award}}}
+ note = {}
 }
 
 
