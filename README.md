@@ -72,7 +72,7 @@ git clone https://github.com/kimiasa/Experiments/tree/inference  # use inference
 ### Bert fine-tuning
 Ensure that [SS1 Kernel](https://github.com/kimiasa/SSLinear/tree/clean) is properly installed. <br /><br />
 To project BERT models onto SS1 layers, use the following code:
-```
+```python
 from transformers import AutoModel
 from sketch_structured_linear.SSLProjection import convert_to_ss_linear
 
@@ -104,7 +104,7 @@ model = convert_to_ss_linear(
 )
 ```
 
-##### Layer Selection Guide
+#### Layer Selection Guide
 To select optimal layers for your specific dataset:
 
 - Use a small validation set from your target task as calibration data
@@ -113,6 +113,22 @@ To select optimal layers for your specific dataset:
 - Validate the selected configuration on your full dataset
 
 Adjust layer_indices and reduction_factor based on your desired compression/performance trade-off. The model can then be fine-tuned using standard HuggingFace training methods.
+
+You can also reproduce our experiments using the following command: 
+```
+export TASK_NAME=mrpc
+python experiments/run_glue_no_trainer.py \
+    --model_name_or_path google-bert/bert-base-cased \
+    --task_name $TASK_NAME \
+    --max_length 128 \
+    --per_device_train_batch_size 32 \
+    --learning_rate 2e-5 \
+    --num_train_epochs 3 \
+    --output_dir /tmp/$TASK_NAME/ \
+    --reduction_factor 8 \
+    --layers_to_skip  1,7,8,9,10,11,12 \
+    --skip_attention False
+```
 
 # Correspondence
 If you need help with your own work using the repository, it would be best to email apdesai@berkeley.edu AND adirid.7090@gmail.com 
