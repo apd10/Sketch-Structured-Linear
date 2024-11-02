@@ -49,7 +49,7 @@ model = convert_to_ss_linear(
     skip_pattern=['pooler', 'embeddings'],
 )
 ```
-During conversion, block sizes for each layer are adjusted to optimize efficiency with respect to GPU capabilities and model dimensions. So expect the first iteration to be slow. If you know what block sizes to use , you can skip autotuning and set the block sizes after initializing layer.
+During conversion, block sizes for each layer are adjusted to optimize efficiency with respect to GPU capabilities and model dimensions. So expect model conversion to be slow. If you know what block sizes to use , you can skip autotuning and set the block sizes after initializing layer.
 
 ### Projecting a pre-trained model onto SS1
 
@@ -70,7 +70,49 @@ git clone https://github.com/kimiasa/Experiments/tree/inference  # use inference
 ```
 
 ### Bert fine-tuning
+Ensure that [SS1 Kernel](https://github.com/kimiasa/SSLinear/tree/clean) is properly installed. <br /><br />
+To project BERT models onto SS1 layers, use the following code:
+```
+from transformers import AutoModel
+from sketch_structured_linear.SSLProjection import convert_to_ss_linear
 
+# For BERT-large
+model = AutoModel.from_pretrained("bert-large-uncased")
+# These layers were selected using GLUE's RTE task - adjust for your dataset
+layer_indices = [1, 6, 8, 9, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24]
+model = convert_to_ss_linear(
+    model,
+    reduction_factor=8,
+    layer_indices=layer_indices,
+    skip_attention=False,
+    init_seed=42,
+    skip_pattern=['pooler', 'embeddings']
+)
+
+# For BERT-base
+# Example using GLUE-optimized layer selection
+model = AutoModel.from_pretrained("bert-base-uncased")
+# These layers were selected using GLUE's RTE task - adjust for your dataset
+layer_indices = [1, 7, 8, 9, 10, 11, 12]
+model = convert_to_ss_linear(
+    model,
+    reduction_factor=8,
+    layer_indices=layer_indices,
+    skip_attention=False,
+    init_seed=42,
+    skip_pattern=['pooler', 'embeddings']
+)
+```
+
+##### Layer Selection Guide
+To select optimal layers for your specific dataset:
+
+- Use a small validation set from your target task as calibration data
+- Measure performance impact by compressing one layer at a time
+- Select layers that show minimal performance degradation when compressed
+- Validate the selected configuration on your full dataset
+
+Adjust layer_indices and reduction_factor based on your desired compression/performance trade-off. The model can then be fine-tuned using standard HuggingFace training methods.
 
 # Correspondence
 If you need help with your own work using the repository, it would be best to email apdesai@berkeley.edu AND adirid.7090@gmail.com 
