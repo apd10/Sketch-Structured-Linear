@@ -53,6 +53,7 @@ During conversion, block sizes for each layer are adjusted to optimize efficienc
 
 ### Projecting a pre-trained model onto SS1
 
+Not all layers are equal in pretrained model. You can typically find layers that can absorb a lot of compression effects as compared to others. So, it is important to choose which layers can be compressed with SS1. Please take a look at the discussion on Bert finetuning to see how we calibrate the model via calibration dataset to choose different layers.
 
 # Reproducing results in paper.
 
