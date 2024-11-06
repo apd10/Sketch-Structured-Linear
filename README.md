@@ -181,11 +181,13 @@ If you need help with your own work using the repository, it would be best to em
 
 
 @inproceedings{
-stablerps,
-title={In defense of parameter sharing for model compression},
-author={Desai, Aditya and Shrivastava, Anshumali},
-booktitle={The Twelfth International Conference on Learning Representations },
+desai2024in,
+title={In defense of parameter sharing for model-compression},
+author={Aditya Desai and Anshumali Shrivastava},
+booktitle={The Twelfth International Conference on Learning Representations},
 year={2024},
+url={https://openreview.net/forum?id=ypAT2ixD4X}
 }
+
 
 ```
