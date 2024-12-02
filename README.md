@@ -1,7 +1,11 @@
 This is the landing page for Sketch Stuctured Linear code for  [Accelerating Inference with Fast and Expressive Sketch Structured Transform](https://openreview.net/forum?id=nrgyOGU7ZP&referrer=%5BAuthor%20Console%5D(%2Fgroup%3Fid%3DNeurIPS.cc%2F2024%2FConference%2FAuthors%23your-submissions))
 
+
+
 # Sketch Structured Transform parameter sharing scheme
 ![alt text](https://github.com/apd10/Sketch-Structured-Linear/blob/main/SSL1.png)
+
+![SS1](https://github.com/user-attachments/assets/ad1525d3-f1e9-440a-93cb-63929737d79c)
 
 
 # How to use for your own models.
